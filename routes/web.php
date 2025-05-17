@@ -3,12 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-Route::view('../views/', 'inicio');
-Route::view('../views/', 'carreras');
-Route::view('../views/', 'testAptitudinal');
-
-    return view('inicio');
-});
+    return view('index');
+})->name('index');
+Route::view('/carreras', 'carreras')->name('carreras');
+Route::view('/test', 'testAptitudinal')->name('test.aptitudinal');
 
 Route::middleware([
     'auth:sanctum',
