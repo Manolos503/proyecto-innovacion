@@ -14,21 +14,24 @@
         O.V.
       </a>
     </div>
-
-    <button id="toggle-color-mode" class="btn text-white btn-sm me-2">
-      <i class="bi bi-moon-fill"></i>
-    </button>
-
+    <div class="d-flex align-items-center ms-auto">
+      <button id="toggle-color-mode" class="btn text-white btn-sm me-2">
+        <i class="bi bi-moon-fill"></i>
+      </button>
+    </div>
     <div class="dropdown me-2">
       <button class="btn text-white btn-sm dropdown-toggle py-1 border-0"
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
+          Invitado
       </button>
-
       <ul class="dropdown-menu dropdown-menu-end">
         <li>
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
             <button class="dropdown-item">Cerrar sesión</button>
+          </form>
         </li>
       </ul>
     </div>
