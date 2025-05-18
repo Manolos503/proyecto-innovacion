@@ -16,21 +16,27 @@
                  <div class="accordion-body bg-body py-0 ps-3">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item border-0">
-                            <a href=""
-                               class="fw-bold text-info-emphasis text-decoration-none">
+                            <a href="{{ route('carreras') }}"
+                               class="fw-bold text-primary-emphasis text-decoration-none">
                                Carreras
                              </a>
                         </li>
                         <li class="list-group-item border-0">
                             <a href=""
-                               class="fw-bold text-info-emphasis text-decoration-none">
+                               class="fw-bold text-primary-emphasis text-decoration-none">
                                Iniciar test
                              </a>
                         </li>
                         <li class="list-group-item border-0">
                             <a href=""
-                               class="fw-bold text-info-emphasis text-decoration-none">
+                               class="fw-bold text-primary-emphasis text-decoration-none">
                                Institución
+                             </a>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <a href="{{ route('faq') }}"
+                               class="fw-bold text-primary-emphasis text-decoration-none">
+                               Preguntas    
                              </a>
                         </li>
                     </ul>
