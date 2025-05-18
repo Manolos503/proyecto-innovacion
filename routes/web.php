@@ -1,11 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
 Route::view('/carreras', 'carreras')->name('carreras');
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/test', 'testAptitudinal')->name('test.aptitudinal');
 
 Route::middleware([
