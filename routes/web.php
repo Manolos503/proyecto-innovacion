@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HasuraTestController;
 
 Route::get('/', function () {
     return view('index');
@@ -9,6 +10,7 @@ Route::get('/', function () {
 Route::view('/carreras', 'carreras')->name('carreras');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::view('/test', 'testAptitudinal')->name('test.aptitudinal');
+Route::get('/hasura-test', [HasuraTestController::class, 'testQuery']);
 
 Route::middleware([
     'auth:sanctum',
