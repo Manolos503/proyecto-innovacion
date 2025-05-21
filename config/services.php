@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'hasura' => [
+        'endpoint' => env('HASURA_ENDPOINT'),
+        'admin_secret' => env('HASURA_ADMIN_SECRET'),
+    ],
 ];
