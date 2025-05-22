@@ -1,16 +1,15 @@
-<nav class="navbar navbar-expand-lg bg-primary py-1">
+<nav class="navbar navbar-expand-lg dx-bg-navbar py-1">
   <div class="container-fluid ps-0">
-    <div class="d-flex flex-row fw-bold">
-      <button id="sidebar-toggle-btn"
-              type="button"
+    <div class="d-flex flex-row dx-w-navbar fw-bold">
+      <button type="button"
               class="btn border-0 text-white"
               data-bs-toggle="collapse"
               data-bs-target="#sidebar"
-              aria-expanded="true"
+              aria-expanded="false"
               aria-controls="sidebar">
         <i class="bi bi-list"></i>
       </button>
-      <a class="navbar-brand ms-2 {{ config('app.debug') ? 'text-light' : 'text-white' }}" href="{{ route('index') }}">
+      <a class="navbar-brand ms-2 text-white" href="{{ route('index') }}">
         O.V.
       </a>
     </div>
