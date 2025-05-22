@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Orientación vocacional</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.min.css') }}">
-    <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}" defer></script>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <script src="{{ asset('js/bootstrap/bootstrap.bundle.js') }}" defer></script>
 </head>
 <body hx-ext="loading-states">
     @include('common._navbar')
@@ -22,7 +22,7 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('js/base.min.js') }}" defer></script>
+    <script src="{{ asset('js/base.js') }}" defer></script>
     @yield('scripts')
 </body>
 </html>

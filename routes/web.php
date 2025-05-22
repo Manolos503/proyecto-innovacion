@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FaqController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\HasuraTestController;
 
 Route::get('/', function () {
     return view('index');
 })->name('index');
-Route::view('/carreras', 'carreras')->name('carreras');
-Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+Route::view('/degree', 'degree')->name('degree');
+Route::get('/questions', [QuestionsController::class, 'index'])->name('questions');
 Route::view('/test', 'testAptitudinal')->name('test.aptitudinal');
-Route::get('/hasura-test', [HasuraTestController::class, 'testQuery']);
+Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
+Route::view('/institution', 'institution')->name('institution');
 
 Route::middleware([
     'auth:sanctum',

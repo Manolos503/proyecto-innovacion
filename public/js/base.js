@@ -1,5 +1,7 @@
 // noinspection DuplicatedCode,TypeScriptUMDGlobal,JSCheckFunctionSignatures,JSUnresolvedReference
 
+
+
 // *********************************************************************
 // SIDEBAR
 // *********************************************************************
@@ -44,6 +46,8 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
+
+
 // *********************************************************************
 // MESSAGES
 // *********************************************************************
@@ -56,6 +60,7 @@ document.addEventListener('keydown', function (event) {
 // for another messages, and will be instantiated on a per-case basis.
 // The rest of the messages present during the page loading, will be
 // instantiated and shown, with the default behaviour (autohide).
+
 const toastElements = document.querySelectorAll(
   '.toast:not(#base-message):not(#request-message)'
 );
@@ -125,6 +130,8 @@ document.body.addEventListener('htmx:sendError', () => {
   document.body.querySelector('#request-message').classList.remove('show');
 });
 
+
+
 // *********************************************************************
 // FORMS
 // *********************************************************************
@@ -155,49 +162,28 @@ document.body.querySelectorAll('[dx-alphanumeric]').forEach((input) => {
   });
 });
 
-// Enforce a mask on inputs
-// document.body.querySelectorAll('[dx-mask]').forEach((input) => {
-//   input.addEventListener('input', function (event) {
-//     let value = event.target.value;
-//     let mask = input.getAttribute('dx-mask');
-//     if (mask === 'nrc') {
-//       value = value.replace(/\D/g, '');
-//       value = value.replace(/(\d)(\d)$/g, '$1-$2');
-//     } else if (mask === 'nit') {
-//       value = value.replace(/\D/g, '');
-//       value = value.replace(/^(\d{3})(\d)/g, '$1-$2');
-//       value = value.replace(/-(\d{2})(\d)/, '-$1-$2');
-//     } else if (mask === 'dui') {
-//       value = value.replace(/\D/g, '');
-//       value = value.replace(/\d$/g, '$1-$2');
-//     }
-//     event.target.value = value;
-//   });
-// });
+
+
+// *********************************************************************
+// WELCOME MODAL ON TEST PAGE
+// *********************************************************************
+
+document.addEventListener('DOMContentLoaded', function () {
+  const modalElement = document.getElementById('welcomeModal');
+  if (modalElement) {
+    const modal = new bootstrap.Modal(modalElement, {
+      backdrop: 'static',
+      keyboard: false
+    });
+    modal.show();
+  }
+});
+
+
 
 // *********************************************************************
 // UTILS
 // *********************************************************************
-
-// Enable copy buttons
-document.querySelectorAll('[data-copy-content]').forEach((item) => {
-  item.addEventListener('click', function () {
-    navigator.clipboard.writeText(item.dataset.copyContent || '').then(
-      () => {
-        showMessage(
-          item.dataset.copyMessage || 'Contenido copiado al portapapeles',
-          item.dataset.copyMessageLevel || 25
-        );
-      },
-      () => {
-        showMessage(
-          'El contenido no pudo ser copiado, contacte al administrador',
-          30
-        );
-      }
-    );
-  });
-});
 
 // Close the modal form
 document.body.querySelectorAll('#form_modal').forEach((item) => {
@@ -207,75 +193,9 @@ document.body.querySelectorAll('#form_modal').forEach((item) => {
   });
 });
 
-// Enable signature functionality
-document.querySelectorAll('[data-bs-toggle="modal"]').forEach((item) => {
-  item.addEventListener('click', function () {
-    setTimeout(() => {
-      const modal = document.querySelector(item.getAttribute('data-bs-target'));
-      const canvas = modal.querySelector('#signature-pad');
-      if (!canvas) return;
 
-      const ctx = canvas.getContext('2d');
-      const clearButton = modal.querySelector('#clear-signature');
-      const signatureInput = modal.querySelector('#id_signature');
-      let isDrawing = false;
 
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-      ctx.strokeStyle = '#000';
 
-      function getPos(e) {
-        const rect = canvas.getBoundingClientRect();
-        return {
-          x: (e.clientX || e.touches[0].clientX) - rect.left,
-          y: (e.clientY || e.touches[0].clientY) - rect.top,
-        };
-      }
-
-      function startDrawing(e) {
-        e.preventDefault();
-        isDrawing = true;
-        const pos = getPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      }
-
-      function draw(e) {
-        if (!isDrawing) return;
-        e.preventDefault();
-        const pos = getPos(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      }
-
-      function stopDrawing() {
-        if (!isDrawing) return;
-        isDrawing = false;
-        ctx.closePath();
-        signatureInput.value = canvas.toDataURL();
-      }
-
-      canvas.addEventListener('touchstart', startDrawing);
-      canvas.addEventListener('touchmove', draw);
-      canvas.addEventListener('touchend', stopDrawing);
-
-      canvas.addEventListener('mousedown', startDrawing);
-      canvas.addEventListener('mousemove', draw);
-      canvas.addEventListener('mouseup', stopDrawing);
-      canvas.addEventListener('mouseleave', stopDrawing);
-
-      if (clearButton) {
-        clearButton.addEventListener('click', () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.beginPath();
-          signatureInput.value = '';
-        });
-      }
-    }, 500); // Asegurar que el modal ya se haya mostrado
-  });
-});
 
 // *********************************************************************
 // TOOLTIPS

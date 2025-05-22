@@ -13,7 +13,7 @@ class HasuraTestController extends Controller
         $this->hasura = $hasura;
     }
 
-    public function testQuery()
+    public function showQuestions()
     {
         $query = '
             query {
@@ -26,6 +26,7 @@ class HasuraTestController extends Controller
 
         $response = $this->hasura->query($query);
 
-        return response()->json($response);
+        $questions = $response['data']['questions'] ?? [];
+        return view('test', compact('questions'));
     }
 }
