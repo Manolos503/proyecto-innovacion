@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
-    public function index()
+    public function questions()
     {
         $questions_answer = [
             [
@@ -46,9 +46,6 @@ class QuestionsController extends Controller
                 "answer" => "No, el sitio web está programado para que solo puedas contestar 'Sí' o 'No'.",
             ],
         ];
-        return view('questions.index', [
-            'questions_answer' => $questions_answer,
-            'page_title' => 'Preguntas Frecuentes',
-        ]);
+        return view('questions.questions', compact('questions_answer'));
     }
 }

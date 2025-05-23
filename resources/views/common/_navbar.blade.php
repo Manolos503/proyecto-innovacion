@@ -13,6 +13,9 @@
         O.V.
       </a>
     </div>
+    <div class="text-white px-3 py-2">
+      <x-breadcrumb :breadcrumbs="$breadcrumbs ?? []" :page-title="$pageTitle ?? ''" />
+    </div>
     <div class="d-flex align-items-center ms-auto">
       <button id="toggle-color-mode" class="btn text-white btn-sm me-2">
         <i class="bi bi-moon-fill"></i>

@@ -5,10 +5,10 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Route;
 
 class Breadcrumb extends Component
 {
-     public string $firstItem;
     public array $items;
     public string $lastItem;
 
@@ -16,24 +16,12 @@ class Breadcrumb extends Component
      * @param BreadCrumb[]|BreadCrumb $breadcrumbs
      * @param string $pageTitle
      */
-     public function __construct(array|BreadCrumb $breadcrumbs = [], string $pageTitle = '')
+    public function __construct(array|BreadCrumb $breadcrumbs = [], string $pageTitle = '')
     {
-        $route = Route::current();
-        $namespace = explode('.', $route->getName())[0] ?? '';
-
-        // Simula el verbose_name (nombre del módulo)
-        $this->firstItem = $namespace !== 'core' ? ucfirst($namespace) : '';
-
         // Asegura que sea un arreglo
-        if ($breadcrumbs instanceof BreadCrumb) {
-            $this->items = [$breadcrumbs];
-        } else {
-            $this->items = $breadcrumbs;
-        }
-
+        $this->items = $breadcrumbs instanceof BreadCrumb ? [$breadcrumbs] : $breadcrumbs;
         $this->lastItem = $pageTitle;
     }
-
 
     public function render()
     {
