@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\HasuraTestController;
-use App\Http\Controllers\SaludoController;
+use App\Http\Controllers\ResultadoController;
 
 Route::get('/', function () {
     return view('index');
@@ -14,8 +14,7 @@ Route::view('/institution', 'institution.institution')->name('institution');
 Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test');
 Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
 
-Route::get('/formulario', [SaludoController::class, 'formulario'])->name('formulario');
-Route::post('/enviar-nombre', [SaludoController::class, 'enviarNombre']);
+Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
 
 Route::middleware([
     'auth:sanctum',

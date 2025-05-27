@@ -35,7 +35,17 @@
                 A continuación, se te harán una serie de preguntas en las que deberás responder con <strong>Sí</strong> o <strong>No</strong>.<br>¡Suerte!
             '
         "
-        button-text="Aceptar" 
+        buttonText="Aceptar" 
+    />
+    <x-modal 
+        id="completionModal"
+        title="Información"
+        :message="
+            '
+                <strong>¡Enhorabuena!</strong> Has terminado tu test.
+            '
+        "
+        buttonText="Aceptar" 
     />
 
     <script>
@@ -57,11 +67,14 @@
                     } else {
                         clearInterval(typeWriter);
                     }
-                }, 30); // velocidad ajustable
+                }, 15); // velocidad ajustable
 
             } else {
-                questionText.textContent = '¡Gracias por completar el test!';
-                document.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+                document.getElementById('question-container').style.display = 'none';
+
+                // Mostrar modal de finalización
+                const completionModal = new bootstrap.Modal(document.getElementById('completionModal'));
+                completionModal.show();
             }
         }
 
@@ -113,6 +126,30 @@
         }
 
         showQuestion();
+        function handleFinalAccept() {
+            const userId = '00000000-0000-0000-0000-000000000001'; // ID quemado por ahora
+
+            fetch('/enviar-user-id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({
+                    userId: userId
+                })
+            })
+            .then(res => res.text()) // Laravel devuelve una vista HTML
+            .then(html => {
+                const newWindow = window.open('', '_blank'); // Puedes cambiar a "_self" si no quieres nueva pestaña
+                newWindow.document.write(html);
+                newWindow.document.close();
+            })
+            .catch(error => {
+                console.error('Error al enviar a Rasa:', error);
+                alert('No se pudo enviar el saludo.');
+            });
+        }
     </script>
 
 @endsection
