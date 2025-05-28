@@ -13,10 +13,10 @@ class AuthController extends Controller
 
     public function __construct() {
         $configuration = new SdkConfiguration(
-            domain: 'orientacion-vocacional.us.auth0.com',
-            clientId: 'Mk0JTaW60Tw3dC0k9I6SqFjz4vEgvXjy',
-            clientSecret: 'DZnF_CWBPhq4dINcm0xxPUzOnOIJSswc1xqAdc0Q08UMFX8XmCct5a_Q1VDGcye2',
-            cookieSecret: 'test-orientacion-vocacional-10',
+            domain: 'dev-62jxa14bxgpd6hrq.us.auth0.com',
+            clientId: 'QKnR6JrOCE8X7TIFNMQQcXc62m19Zhek',
+            clientSecret: 'sRxdWoG-F2vtB_yeDHAhF7c3YGDYlo0-vpoHyt8BCZ-xEBFWb_jBvj4FJhRaUNSU',
+            cookieSecret: 'base64:11SDSpMgvU7wJz1KLzLcocSrJmfZPJ8k3YnotLnGSTs=',
             redirectUri: 'http://localhost:8000/callback'
         );
         $this->auth0 = new Auth0($configuration); // ← CORREGIDO
