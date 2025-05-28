@@ -26,7 +26,7 @@
               type="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
-          Invitado
+          {{ session('user.first_name', 'Invitado') }}
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li>

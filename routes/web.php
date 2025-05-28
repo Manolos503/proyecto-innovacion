@@ -19,6 +19,7 @@ Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']
 
 Route::get('auth0', [AuthController::class, 'auth0']);
 Route::get('callback', [AuthController::class, 'callback']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware([
     'auth:sanctum',

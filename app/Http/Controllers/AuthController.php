@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth0\SDK\Auth0;
 use Auth0\SDK\Configuration\SdkConfiguration;
-use Illuminate\Support\Str;
+use App\Services\HasuraService;
 
 class AuthController extends Controller
 {
@@ -32,14 +32,44 @@ class AuthController extends Controller
         }
     }
 
-    public function callback(Request $request) {
-        $input = $request->all();
-
-        if (null !== $this->auth0->getExchangeParameters()) { // ← CORREGIDO
-            $this->auth0->exchange(); // ← CORREGIDO
+    public function callback(Request $request)
+    {
+        if (null !== $this->auth0->getExchangeParameters()) {
+            $this->auth0->exchange();
         }
 
-        $user = $this->auth0->getCredentials()?->user; // ← CORREGIDO
-        dd($user);
+        $user = $this->auth0->getCredentials()?->user;
+        $email = $user['email'] ?? null;
+
+        if (!$email) {
+            abort(403, 'No se pudo obtener el correo del usuario.');
+        }
+
+        $hasura = new HasuraService();
+
+        $query = <<<GQL
+        query (\$email: String!) {
+            users(where: {email: {_eq: \$email}}) {
+                id
+                firstName
+            }
+        }
+        GQL;
+
+        $response = $hasura->query($query, ['email' => $email]);
+        $users = $response['data']['users'] ?? [];
+
+        if (count($users) > 0) {
+            // Usuario encontrado
+            $request->session()->put('user', [
+                'email' => $email,
+                'first_name' => $users[0]['firstName'],
+                // Puedes guardar más info si quieres
+            ]);
+            return redirect()->route('index');  // Redirige al home
+        } else {
+            // Usuario no encontrado
+            return response()->view('auth.user_not_found', ['email' => $email]);
+        }
     }
 }
