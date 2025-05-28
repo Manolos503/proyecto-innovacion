@@ -10,7 +10,7 @@
                 {!! $message ?? 'Contenido...' !!}
             </div>
             <div class="modal-footer justify-content-end">
-                <button type="button" class="btn btn-primary px-4 fw-bold" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-primary px-4 fw-bold" data-bs-dismiss="modal"  onclick="{{ $id === 'completionModal' ? 'handleFinalAccept()' : '' }}">
                     {{ $buttonText ?? 'Nombre' }}
                 </button>
             </div>
