@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\HasuraTestController;
 use App\Http\Controllers\ResultadoController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('index');
@@ -15,6 +16,9 @@ Route::get('/test', [HasuraTestController::class, 'showQuestions'])->name('test'
 Route::post('/test', [HasuraTestController::class, 'saveAnswer'])->name('test.save');
 
 Route::post('/enviar-user-id', [ResultadoController::class, 'mostrarResultados']);
+
+Route::get('auth0', [AuthController::class, 'auth0']);
+Route::get('callback', [AuthController::class, 'callback']);
 
 Route::middleware([
     'auth:sanctum',
